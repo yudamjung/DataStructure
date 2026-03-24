@@ -12,8 +12,11 @@ int main() {
 //        }
 //    }
     
-    cout << score[0] << endl;       // 2차원 배열의 첫 번째 행 배열의 주소 반환
-    cout << score[1] << endl;       // 2차원 배열의 두 번째 행 배열의 주소 반환
+    cout << score[0] << ' ' << *(score) << endl;       // 2차원 배열의 첫 번째 행 배열의 주소 반환
+    cout << score[1] << ' ' << *(score+1) << endl;       // 2차원 배열의 두 번째 행 배열의 주소 반환. 컴파일러는 좌측 코드를 우측처럼 해석
     
+    cout << *(score + 1) << endl;
+    cout << *(*(score + 1) + 1) << endl;        // score[1][1]
+    cout << *(score[1] + 1) << endl;            // score[1][1]
     return 0;
 }
