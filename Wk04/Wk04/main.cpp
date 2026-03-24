@@ -18,5 +18,8 @@ int main() {
     cout << *(score + 1) << endl;
     cout << *(*(score + 1) + 1) << endl;        // score[1][1]
     cout << *(score[1] + 1) << endl;            // score[1][1]
+    cout << **score << endl;                    // score[0][0]
+    
+    
     return 0;
 }
