@@ -1,14 +1,12 @@
-//
-//  main.cpp
-//  Wk04
-//
-//  Created by Yudam Jung on 3/24/26.
-//
-
 #include <iostream>
+using namespace std;
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return EXIT_SUCCESS;
+int main() {
+    int score[10] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    
+    for (int i=0; i<10; i++) {
+        cout << &score[i] << '\n';
+    }
+    
+    return 0;
 }
