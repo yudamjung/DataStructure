@@ -2,16 +2,18 @@
 using namespace std;
 
 int main() {
-    int score[10] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-    int* ptr;
+    // 2 Dimension Array w. pointer
+    int score[2][3] = { {10,20,30}, {40,50,60}};
     
-    ptr = score; // int* ptr = &score[0]
-    cout << ptr << '\n' << '\n';
+//    for (int i=0; i<2; i++) {
+//        for (int j=0; j<3; j++) {
+//            cout << "Address of 2D Array : " << &score[i][j] << endl;
+//            cout << "Value of 2D Array : " << score[i][j] << endl;
+//        }
+//    }
     
-    for (int i=0; i<10; i++) {
-        cout << ptr + i << " : " << score + i << endl;              // 주소에 접근
-        cout << ptr[i] << " : " << *(ptr+i)<< " : " << score[i]  << " : " << *(score + i) << endl;                // 값에 접근
-    }
+    cout << score[0] << endl;       // 2차원 배열의 첫 번째 행 배열의 주소 반환
+    cout << score[1] << endl;       // 2차원 배열의 두 번째 행 배열의 주소 반환
     
     return 0;
 }
