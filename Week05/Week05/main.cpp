@@ -31,7 +31,10 @@ int main() {
     
     // 60이라는 값을 갖는 노드 주소 출력
     for (Node* list = head; list != NULL; list=list->link) {
-        if (list->data == 60) cout << "FOUND" << endl;
+        if (list->data == 60) {
+            cout << "FOUND" << endl;
+            return 0;
+        }
         cout << "NOT FOUND" << endl;
     }
     
