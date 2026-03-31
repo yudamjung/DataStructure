@@ -8,28 +8,34 @@ public:
 };
 
 Node* head = NULL;
-Node* p1, *p2, *p3;
+
+void insert_node_at_rear(Node *new_node)
+{
+    if( head == NULL ){    // 공백리스트인 경우
+        // new_node->link = NULL;
+        head = new_node;
+    }
+    else  {
+        Node *list= head;
+
+        while(list->link != NULL)
+            list = list->link;
+        list->link = new_node;
+    }
+}
+
 
 int main() {
-    p1 = new Node;
-    p1->data = 10;
-    p1->link = NULL;
-    
-    p2 = new Node;
-    p2->data = 20;
-    p2->link = NULL;
-    
-    
-    p3 = new Node;
-    p3->data = 30;
-    p3->link = NULL;    // 마지막이니까 NULL pointing
-    
-    
-    
-    p1->link = p2;      // p2가 생성된 뒤에 연결
-    p2->link = p3;      // p3가 생성된 뒤에 연결
-    p3->link = NULL;
-    head = p1;
+    for (int i=0; i<8; i++) {
+        Node *new_node = new Node;
+        new_node->data = 10 * (i+1);
+        new_node->link = NULL;
         
+        insert_node_at_rear(new_node);
+    }
+    
+    for (Node *list = head; list != NULL; list=list->link) {
+        cout << list->data << endl;
+    }
     return 0;
 }
