@@ -45,6 +45,19 @@ void delete_node(int X) {
     }
 }
 
+void reverse_list() {
+    Node *p, *q, *r;
+    p = head;
+    q = NULL;
+    while (p != NULL) {
+        r = q;
+        q = p;
+        p = p->link;
+        q->link = r;
+    }
+    head = q;
+}
+
 void print_list() {
     cout << "전체 연결리스트" << endl;
     for (Node *list = head; list != NULL; list = list -> link) {  // ⭐️
@@ -74,10 +87,12 @@ int main() {
     cout << '\n';
     print_list();
     
+    // 노드 역순 만들기
+    reverse_list();
     
-    // 노드 삭제
-    delete_node(60);
-    
+    // 작업 확인용
+    cout << "===== 역순 작업 후 =====" << '\n';
     print_list();
+    
     return 0;
 }
