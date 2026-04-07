@@ -45,8 +45,10 @@ void delete_node(int X) {
     }
 }
 
+// 리스트 역순 함수
 void reverse_list() {
     Node *p, *q, *r;
+    //Node *p, q, r;  하면 p만 노드를 가리키는 포인터, q와 r은 노드의 인스턴스
     p = head;
     q = NULL;
     while (p != NULL) {
