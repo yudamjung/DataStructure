@@ -31,7 +31,11 @@ void print_list() {
 }
 
 int main() {
-    for (int i = 0; i< 8; i++) {
+    int inputSize;
+    cout << "입력할 값의 개수: ";
+    cin >> inputSize;
+    
+    for (int i = 0; i< inputSize; i++) {
         // 새로운 노드 할당 및 값 설정
         Node *ptr = new Node;
         
