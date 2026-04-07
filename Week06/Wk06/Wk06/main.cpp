@@ -23,6 +23,28 @@ void insert_node_at_rear(Node *new_node) {
         }
 }
 
+// 노드 삭제 함수
+void delete_node(int X) {
+    if (head == NULL) return;       // 삭제할 것이 없음 - 빈 노드인 경우
+    else if (head->data == X) {     // 찾는 노드(삭제 노드)가 첫 노드인 경우
+        head = head->link;
+        return;
+    }
+    else {
+        Node *list = head;
+        
+        // 마지막 노드까지 순회하기
+        while (list->link != NULL) {
+            if (list->link->data == X) {        // 다음 노드의 값이 X이면
+                list-> link = list->link->link; // 현재 노드의 주소에 삭제할 노드가 가리키는 노드의 주소를 대입
+                // delete list;
+                return;
+            }
+            list = list->link;
+        }
+    }
+}
+
 void print_list() {
     cout << "전체 연결리스트" << endl;
     for (Node *list = head; list != NULL; list = list -> link) {  // ⭐️
@@ -50,6 +72,12 @@ int main() {
     }
     // 작업 확인용
     cout << '\n';
+    print_list();
+    
+    
+    // 노드 삭제
+    delete_node(60);
+    
     print_list();
     return 0;
 }
