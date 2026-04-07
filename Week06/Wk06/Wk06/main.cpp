@@ -45,6 +45,7 @@ int main() {
         insert_node_at_rear(ptr);       // 전체 리스트의 뒤쪽에 새로운 값 추가
     }
     // 작업 확인용
+    cout << '\n';
     print_list();
     return 0;
 }
