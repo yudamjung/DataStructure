@@ -21,6 +21,31 @@ void insert_at_rear(Node *new_node) {
     }
 }
 
+void delete_node(int X) {
+    if (Head == NULL) return;
+
+    // 노드가 1개인 경우
+    if (Head->link == Head && Head->data == X) {
+        Head = NULL;
+        return;
+    }
+
+    Node *pre = Head;
+    do {
+        if (pre->link->data == X) {
+            Node *target = pre->link;
+            pre->link = target->link;
+
+            // 삭제 대상이 Head면 Head 갱신
+            if (target == Head) Head = pre;
+
+            delete target; // 메모리 해제도 해주기
+            return;
+        }
+        pre = pre->link;
+    } while (pre != Head);
+}
+
 void print_list() {
     Node *list;
     if (Head == NULL) cout << "List is NULL :: Noghint to show" << endl;
@@ -52,6 +77,18 @@ int main() {
     }
     
     // 확인용
+    print_list();
+    
+    // 노드 삭제
+    cout << "삭제할 값은: ";
+    int value_to_delete;
+    cin >> value_to_delete;
+    
+    // 원형 리스트에서 삭제
+    delete_node(value_to_delete);
+    
+    // 확인용
+    cout << "=== 삭제 후 원형연결리스트 결과 ===" << endl;
     print_list();
     
     return 0;
