@@ -9,16 +9,24 @@ public:
 };
 
 DNode *Head = NULL;
-//Node *Head = NULL;
-
 
 // 노드 new_node를 리스트 마지막 노드로 삽입한다. 즉, 헤드노드 앞쪽에 삽입
-void insert_node_at_rear(DNode *new_node)
-{
+void insert_node_at_rear(DNode *new_node) {
     new_node->rlink = Head;
     new_node->llink = Head->llink;
     Head->llink->rlink = new_node;
     Head->llink = new_node;
+}
+
+// 리스트에서 지우려는 값을 찾아 삭제하기
+void remove_node (int X) {
+    for (DNode *list = Head->rlink; list != Head; list = list->rlink) {
+        if (list->data == X) {
+            list->llink->rlink = list->rlink;
+            list->rlink->llink = list->llink;
+            return;
+        }
+    }
 }
 
 // 전체 노드를 차례대로 순회하면서 데이터 값을 출력
@@ -65,6 +73,15 @@ int main() {
     print_list();
     cout << "역순으로 출력" << endl;
     print_reverse_list();
+    cout << '\n';
+    
+    // 삭제하기
+    cout << "삭제할 값: ";
+    int X;
+    cin >> X;
+    remove_node(X);
+    // 확인용
+    print_list();
     
     return 0;
 }
