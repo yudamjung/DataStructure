@@ -1,62 +1,46 @@
 #include <iostream>
 using namespace std;
 
-class Node {
+class DNode {
 public:
     int data;
-    Node *link;
+    DNode *llink;
+    DNode *rlink;
 };
 
-Node *Head = NULL;
+DNode *Head = NULL;
+//Node *Head = NULL;
 
-void insert_at_rear(Node *new_node) {
-    if (Head == NULL) {
-        new_node -> link = new_node;
-        Head = new_node;
-    }
-    else {
-        new_node->link = Head->link;
-        Head->link = new_node;
-        Head = new_node;
-    }
+
+// 노드 new_node를 리스트 마지막 노드로 삽입한다. 즉, 헤드노드 앞쪽에 삽입
+void insert_node_at_rear(DNode *new_node)
+{
+    new_node->rlink = Head;
+    new_node->llink = Head->llink;
+    Head->llink->rlink = new_node;
+    Head->llink = new_node;
 }
 
-void delete_node(int X) {
-    if (Head == NULL) return;
-
-    // 노드가 1개인 경우
-    if (Head->link == Head && Head->data == X) {
-        Head = NULL;
-        return;
-    }
-
-    Node *pre = Head;
-    do {
-        if (pre->link->data == X) {
-            Node *target = pre->link;
-            pre->link = target->link;
-
-            // 삭제 대상이 Head면 Head 갱신
-            if (target == Head) Head = pre;
-
-            delete target; // 메모리 해제도 해주기
-            return;
-        }
-        pre = pre->link;
-    } while (pre != Head);
-}
-
+// 전체 노드를 차례대로 순회하면서 데이터 값을 출력
 void print_list() {
-    Node *list;
-    if (Head == NULL) cout << "List is NULL :: Noghint to show" << endl;
-    else {
-        for (list = Head->link; list != Head; list = list->link)
-            cout << list -> data << "->";
+    for (DNode *list = Head->rlink; list != Head; list = list->rlink) {
+        cout << list->data << endl;
+    }
+}
+
+// 연결리스트의 노드를 역순으로 출력
+void print_reverse_list() {
+    for (DNode *list = Head->llink; list != Head; list = list->llink) {
         cout << list->data << endl;
     }
 }
 
 int main() {
+    // 헤드 노드 구성 - llink와 rlink가 모두 헤드 노드 자신을 가리킴
+    Head = new DNode;
+    Head->llink = Head;
+    Head->rlink = Head;
+    
     cout << "입력할 노드의 개수는: ";
     int num;
     cin >> num;
@@ -68,28 +52,19 @@ int main() {
         cin >> data;
         
         // 노드 할당
-        Node *ptr = new Node;
+        DNode *ptr = new DNode;
         ptr->data = data;
-        ptr->link = NULL;
+        ptr->llink = ptr->rlink = NULL;
         
         // 기존 리스트에 연결
-        insert_at_rear(ptr);
+        insert_node_at_rear(ptr);
     }
     
     // 확인용
+    cout << "구성된 이중(원형)리스트 결과" << endl;
     print_list();
-    
-    // 노드 삭제
-    cout << "삭제할 값은: ";
-    int value_to_delete;
-    cin >> value_to_delete;
-    
-    // 원형 리스트에서 삭제
-    delete_node(value_to_delete);
-    
-    // 확인용
-    cout << "=== 삭제 후 원형연결리스트 결과 ===" << endl;
-    print_list();
+    cout << "역순으로 출력" << endl;
+    print_reverse_list();
     
     return 0;
 }
