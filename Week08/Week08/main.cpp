@@ -1,71 +1,70 @@
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 
-// Stack & full, empty check & push(), pop()
-const int MAX_SIZE = 100;
+// 연결리스트로 구현하는 스택
+class Node {
+public:
+    int data;
+    Node *link;
+};
+
 
 class MyStack {
 public:
-    int data[MAX_SIZE];
-    int top;                    // Stack Pointer, index
-    
-    MyStack() { top = -1; }     // Constructor
+    Node *top;                  // Stack Pointer, Pointer 변수, head 역할
+    MyStack() { top = NULL; }
+    ~MyStack() {
+        while (!is_stack_empty()) {
+            pop();
+        }
+    }
     
     bool is_stack_empty() {
-//        if (top == -1) return true;
-//        else return false;
-        // 간소화 버전
-        return (top == -1);
+        return (top == NULL);
     }
     
-    bool is_stack_full() {
-//        if (top == (MAX_SIZE - 1)) return true;
-//        else return false;
-        // 간소화 버전
-        return (top == (MAX_SIZE - 1));
+    void push(int item) {       // 단순 연결리스트에서 첫 노드 삽입하기
+        Node *new_node = new Node;
+        new_node -> data = item;
+        //new_node -> link = NULL;
+        
+        // 단순 연결 리스트의 첫 노드로 삽입
+        new_node -> link = top;
+        top = new_node;
     }
     
-    void push(int item) {
-        if (is_stack_full()) {
-            cout << "STACK OVERFLOW ERROR" << endl;
-            exit(1);
-        }
-        else {
-//            top ++;
-//            MyStack[top] = x;
-            data[++top] = item;
-        }
-    }
-    
-    //
     int pop() {
         if (is_stack_empty()) {
-            cout << "STACK UNDERFLOW ERROR" << endl;
-            exit(1);
+            throw std::underflow_error("STACK UNDERFLOW");
+        } else {
+            int value = top->data;
+            Node* oldTop = top;
+            top = top->link;
+            delete oldTop;
+            return value;
         }
-        else return data[top--];
-//        else {
-//            x = MyStack[top];
-//            top--;
-//            return x;
-//        }
     }
     
     // Stack 출력 함수
     void stack_status () {
-        cout << "TOP = " << top << endl;
-        for (int i = top; i >= 0; i--) {
-            cout << data[i] << '\n';
+        if (is_stack_empty()) {
+            cout << "Stack is empty" << '\n';
+            return;
         }
+        cout << "Stack (top -> bottom): ";
+        for (Node *list = top; list != NULL; list = list->link) {
+            cout << list->data;
+            if (list->link) cout << " -> ";
+        }
+        cout << '\n';
     }
 };
 
 int main() {
     MyStack s1;
-    MyStack *s2 = &s1;
     
     s1.push(10);
-    s2 -> push(15);
     s1.push(20);
     s1.push(30);
     s1.pop();       // 30을 pop
