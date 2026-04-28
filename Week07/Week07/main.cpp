@@ -18,6 +18,7 @@ void insert_node_at_rear(DNode *new_node) {
     Head->llink = new_node;         // 헤드노드의 좌측 노드를 새 노드로 갱신
 }
 
+/*
 // 리스트에서 지우려는 값을 찾아 삭제하기
 void remove_node (int X) {
     for (DNode *list = Head->rlink; list != Head; list = list->rlink) {     // 연결리스트를 따라 순회하는 구조
@@ -27,6 +28,13 @@ void remove_node (int X) {
             return;
         }
     }
+}
+ */
+
+void remove_node (DNode *head, DNode* removed) {
+    if (removed == head) return;
+    removed->llink->rlink = removed ->rlink;
+    removed->rlink->llink = removed ->llink;
 }
 
 // 전체 노드를 차례대로 순회하면서 데이터 값을 출력
@@ -84,11 +92,12 @@ int main() {
     print_reverse_list();
     cout << '\n';
     
-    // 삭제하기
-    cout << "삭제할 값: ";
-    int X;
-    cin >> X;
-    remove_node(X);
+//    // 삭제하기
+//    cout << "삭제할 값: ";
+//    int X;
+//    cin >> X;
+//    remove_node(X);
+    remove_node(Head, Head);
     // 확인용
     print_list();
     
