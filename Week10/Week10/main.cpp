@@ -12,7 +12,7 @@ const int MAX_SIZE = 100;
 
 class MyStack {
 public:
-    char data[MAX_SIZE];
+    int data[MAX_SIZE];
     int top;
     
     MyStack() {
@@ -25,7 +25,7 @@ public:
         data[++top] = item;
     }
     
-    char pop() {
+    int pop() {
         // isStackEmpty 검사
         return data[top--];
     }
@@ -47,7 +47,7 @@ int main() {
         }
         else if (ch == ')') {         // 폐괄호면 pop하고 출력한다
             // 단, 괄호는 소괄호만 사용한다고 가정
-            cout << s1.pop();
+            cout << (char)s1.pop();
         }
         else if (ch == '(') {         // 개괄호는 무시하고 건너뛴다
             continue;
