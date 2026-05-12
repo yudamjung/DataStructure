@@ -1,12 +1,12 @@
 #include <iostream>
 using namespace std;
 
-// 후위 표기식 변환 알고리즘
+// 후위 표기식 계산 알고리즘
 // 1. 개괄호 만나면 무시
-// 2. 피연산자를 만나면 출력
-// 3. 연산자를 만나면 스택에 push
-// 4. 폐괄호를 만나면 스택에서 Pop
-// 5. 수식이 끝나면 스택이 empty 될 때까지 pop
+// 2. 피연산자를 만나면 스택에 ㅔush
+// 3. 연산자를 만나면 필요한 개수의 피연산자를 스택에서 pop
+// 4. 연산결과를 다시 스택에 Push
+// 5. 수식이 끝나면 마지막으로 스택을 pop 하여 출력
 
 const int MAX_SIZE = 100;
 
@@ -35,27 +35,40 @@ public:
 int main() {
     MyStack s1;
     char str[100];
-    cout << "중위 수식 입력 : ";
+    cout << "후위 수식 입력 : ";
     cin.getline(str, 100, '\n');
     
     for (int i=0; i<strlen(str); i++) {
+        char opr1, opr2;
         char ch = str[i];
         
-            
-        if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {     // 사칙연산 이면
-            s1.push(ch);              // push
+        if(ch == ' ') continue;     // 공백이 입력되는 경우 처리
+        if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {     // 사칙연산자가 아니면 (피연산자이면)
+                s1.push(ch - '0');              // push => 아스키코드 6 -> 숫자문자 6
         }
-        else if (ch == ')') {         // 폐괄호면 pop하고 출력한다
-            // 단, 괄호는 소괄호만 사용한다고 가정
-            cout << (char)s1.pop();
+        else if (ch == '+') {
+            opr2 = s1.pop();
+            opr1 = s1.pop();
+            s1.push(opr1 + opr2);
         }
-        else if (ch == '(') {         // 개괄호는 무시하고 건너뛴다
-            continue;
+        else if (ch == '-') {
+            opr2 = s1.pop();
+            opr1 = s1.pop();
+            s1.push(opr1 - opr2);
         }
-        else {                        // 피연산자이면
-            cout << ch;        // 그냥 출력한다
+        else if (ch == '*') {
+            opr2 = s1.pop();
+            opr1 = s1.pop();
+            s1.push(opr1 * opr2);
+        }
+        else if (ch == '/') {
+            opr2 = s1.pop();
+            opr1 = s1.pop();
+            s1.push(opr1 / opr2);
         }
     }
+    
+    cout << str << " = " << s1.pop() << endl;
     
     return 0;
 }
