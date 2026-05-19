@@ -49,17 +49,20 @@ public:
         cout << "원형 큐 상태 출력" << '\n';
         // front가 rear보다 앞에 있는 경우
         if (front <= rear) {
-            for (int i = front + 1;i <= rear; i++) {
+            for (int i = front + 1; i <= rear; i++) {
                 cout << data[i] << ' ';
             }
         }
         // rear가 front보다 앞에 있는 경우
         else {
-            for(int i = front + 1; i <= MAX_SIZE - 1; i++) {
-                cout << data[i] << ' ';
-            }
-            for (int i = 0 ; i<= rear; i++) {
-                cout << data[i] << ' ';
+//            for(int i = front + 1; i <= MAX_SIZE - 1; i++) {
+//                cout << data[i] << ' ';
+//            }
+//            for (int i = 0 ; i<= rear; i++) {
+//                cout << data[i] << ' ';
+//            }
+            for (int i = front + 1; i <= rear + MAX_SIZE; i++) {
+                cout << data[i % MAX_SIZE] << endl;
             }
         }
     }
