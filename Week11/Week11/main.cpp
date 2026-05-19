@@ -1,8 +1,80 @@
 #include <iostream>
 using namespace std;
 
-int main() {
+const int MAX_SIZE = 10;
+
+class MyQueue {
+public:
+    int data[MAX_SIZE];
+    int front, rear;
     
+    MyQueue () {    // constructor
+        front = rear = 0;
+    }
+    
+    bool is_empty() {
+        // if (front == rear) return true;
+        // else return false;
+        return (front == rear);
+    }
+    
+    bool is_full() {
+        // if (front == (rear + 1) % MAX_SIZE) return true;
+        // else return false;
+        return (front == (rear + 1) % MAX_SIZE);
+    }
+    
+    void enQueue (int x) {
+        if (is_full()) { cout << "ERROR: QUEUE OVERFLOW"; return; }
+        else {
+            // 일반 큐 rear++; data[rear] = x; => data[++rear] = x;
+            rear = (rear + 1) % MAX_SIZE; // ⭐️
+            data[rear] = x;
+        }
+    }
+    
+    int deQueue() {
+        if (is_empty()) { cout << "ERROR : QUEUE UNDERFLOW"; return -1; }
+        else {
+            /* 일반 큐
+            front++;
+            return data[front];
+            => return data[++front]; */
+            front = (front + 1) % MAX_SIZE;
+            return data[front];
+        }
+    }
+    
+    void printQueue() {
+        cout << "원형 큐 상태 출력" << '\n';
+        // front가 rear보다 앞에 있는 경우
+        if (front <= rear) {
+            for (int i = front + 1;i <= rear; i++) {
+                cout << data[i] << ' ';
+            }
+        }
+        // rear가 front보다 앞에 있는 경우
+        else {
+            for(int i = front + 1; i <= MAX_SIZE - 1; i++) {
+                cout << data[i] << ' ';
+            }
+            for (int i = 0 ; i<= rear; i++) {
+                cout << data[i] << ' ';
+            }
+        }
+    }
+};
+
+int main() {
+    MyQueue q1;
+    
+    q1.enQueue(10);
+    q1.enQueue(20);
+    q1.enQueue(30);
+    q1.enQueue(40);
+    q1.enQueue(50);
+    q1.deQueue();
+    q1.printQueue();
     
     return 0;
 }
