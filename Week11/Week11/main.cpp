@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <deque>
 using namespace std;
 
 const int MAX_SIZE = 10;
@@ -97,6 +98,12 @@ int main() {
         q2.pop();
     }
     cout << endl;
+    
+    
+    // STL 활용 Deque
+    deque<int> q3;
+    // insert
+    // push_back, push_front, insert ... 찾아보기
     
     return 0;
 }
