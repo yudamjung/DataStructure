@@ -1,61 +1,62 @@
 #include <iostream>
 using namespace std;
 
-// Queue 배열 방식으로 구현
+// Queue 연결리스트 방식으로 구현
 
-const int MAX_SIZE = 100;
+class QNode {
+public:
+    int data;
+    QNode *link;
+};
 
 class MyQueue {
 public:
-    int data[MAX_SIZE];
-    int front, rear;
+    QNode *front, *rear;
     
     MyQueue() {
-        // constructor
-        front = rear = -1;
+        front = rear = NULL;
     }
     
-    // Queue 가 꽉 찼는지 확인하는 메서드
-    bool is_queue_full() {
-//        if(rear = MAX_SIZE - 1) return true;
-//        else return false;
-        return (rear == MAX_SIZE - 1);
-    }
-    
-    // Queue가 비어있는지 확인하는 메서드
+    // Queue가 비어있는지 확인하는 메서드 - front 나 rear가 NULL
     bool is_queue_empty() {
-//        if (front == rear) return true;
-//        else return false;
-        return (front == rear);
+        return (front == NULL);     // rear == NULL
     }
     
     // Queue에 원소를 삽입하는 메서드
     void enQueue(int item) {
-        // Queue가 full 인지 검사
-        if (is_queue_full()) {
-            cout << "QUEUE OVERFLOW" << endl;
+        QNode *new_node = new QNode;
+        new_node -> data = item;
+        new_node -> link = NULL;
+        
+        if (is_queue_empty()) {         // 첫 노드이면 특별하게 처리
+            front = rear = new_node;
         }
-        else data[++rear] = item;
+        else {
+            rear -> link  = new_node;
+            rear = new_node;
+        }
     }
     
     // Queue의 원소를 삭제하는 메서드
     int deQueue() {
-        // Queue가 empty 인지 검사
         if (is_queue_empty()) {
-            cout << "QUEUE UNDERFLOW" << endl;
-            exit(1);
+            cout << "QUEUE EMPTY";
+            return -1;
         }
-        else return data[++front];
+        else {
+            int item = front->data;
+            front = front -> link;
+            if (front == NULL) rear = NULL;
+            return item;
+        }
     }
     
     // Queue의 요소들을 출력하는 메서드
     void queue_list() {
         if (is_queue_empty()) { cout << "큐가 비어있습니다."; }
-        for (int i = front + 1; i <= rear; i++) {
-            cout << ' ' << data[i] << ' ';
+        for (QNode* list = front; list != NULL; list = list->link) {
+            cout << ' ' << front-> data << ' ';
         }
-    }
-    
 };
 
 
@@ -63,11 +64,11 @@ int main() {
     MyQueue q1;
     
     q1.enQueue(10);
-    q1.enQueue(20);
-    q1.enQueue(30);
-    q1.enQueue(40);
-    q1.deQueue();
+    q1.enQueue(10);
+    q1.enQueue(10);
+    q1.enQueue(10);
     
-    q1.queue_list();
+    
+    
     return 0;
-}
+} //아니 메인함수에 
