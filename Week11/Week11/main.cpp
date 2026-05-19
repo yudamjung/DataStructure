@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 const int MAX_SIZE = 10;
@@ -78,6 +79,24 @@ int main() {
     q1.enQueue(50);
     q1.deQueue();
     q1.printQueue();
+    cout << endl;
+    
+    // STL 활용
+    queue<int> q2;
+    q2.push(10);
+    q2.push(20);
+    q2.push(30);
+    q2.push(40);
+    q2.push(50);
+    q2.push(60);
+    q2.pop();
+    
+    cout << '\n' << "STL 제공 큐 사용" << endl;
+    while (!q2.empty()) {
+        cout << q2.front() << ' ';
+        q2.pop();
+    }
+    cout << endl;
     
     return 0;
 }
