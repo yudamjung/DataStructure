@@ -1,5 +1,5 @@
-#if 0
-// Tree Sample
+#if 1
+// Tree Sample - ê·¸ë¦¼ [8-14] ì´ì§„ íŠ¸ë¦¬ì˜ ì „ìœ„ ìˆœíšŒ ê²½ë¡œ
 #include <iostream>
 using namespace std;
 
@@ -12,10 +12,10 @@ public:
 };
 
 void inorder(TreeNode* root) {
-	if (root == NULL) return;  // *** Áß¿ä
-	cout << root->data << endl;
-	inorder(root->left);
-	inorder(root->right);
+if (root == NULL) return;  // *** ì¤‘ìš”
+inorder(root->left);
+cout << root->data << endl;
+inorder(root->right);
 }
 
 const int NODE_CNT = 11;
@@ -23,25 +23,25 @@ const int NODE_CNT = 11;
 int main() {
 	TreeNode* nodes[NODE_CNT];
 
-	// ÇÊ¿ä °¹¼ö¸¸Å­ ³ëµå »ı¼º
+	// Â«Â Ã¸â€° âˆÏ€ÂºË†âˆâˆâ‰ˆâ‰  â‰¥ÃÂµÃ‚ ÂªËÂºâˆ«
 	for (int i = 0; i < NODE_CNT; i++) {
 		nodes[i] = new TreeNode;
 		nodes[i]->left = NULL;
 		nodes[i]->right = NULL;
 	}
 
-	// °¢ ³ëµåÀÇ °ª(data) Ãß°¡
+	// âˆÂ¢ â‰¥ÃÂµÃ‚Â¿Â« âˆâ„¢(data) âˆšï¬‚âˆÂ°
 	nodes[0]->data = 'A'; 	nodes[1]->data = 'B';	nodes[2]->data = 'C'; 	nodes[3]->data = 'D';
 	nodes[4]->data = 'E';   nodes[5]->data = 'F';	nodes[6]->data = 'G'; 	nodes[7]->data = 'H';
 	nodes[8]->data = 'I';	nodes[9]->data = 'J';	nodes[10]->data = 'K';
 
-	// °¢ ³ëµå ¿¬°á (±×¸² ÂüÁ¶, ´Ù¸¸ ÀÎµ¦½º 0ºÎÅÍ½ÃÀÛ) ÃÑ 10°³ÀÇ °¡Áö ±¸Çö
+	// âˆÂ¢ â‰¥ÃÂµÃ‚ Ã¸Â¨âˆÂ· (Â±â—Šâˆâ‰¤ Â¬Â¸Â¡âˆ‚, Â¥Å¸âˆâˆ Â¿Å’ÂµÂ¶Î©âˆ« 0âˆ«Å’â‰ˆÃ•Î©âˆšÂ¿â‚¬) âˆšâ€” 10âˆâ‰¥Â¿Â« âˆÂ°Â¡Ë† Â±âˆÂ«Ë†
 	nodes[0]->left = nodes[1]; nodes[0]->right = nodes[2]; // A-B, A-C
 	nodes[1]->left = nodes[3]; nodes[1]->right = nodes[4]; // B-D, B-E
 	nodes[2]->left = nodes[5]; nodes[2]->right = nodes[6]; // C-F, C-G
 	nodes[3]->left = nodes[7];							   // D-H
 	nodes[4]->left = nodes[8]; nodes[4]->right = nodes[9]; // E-I, E-J
-	//nodes[5] = ?? ÀÚ½Ä³ëµå ¾øÀ½
+	//nodes[5] = ?? Â¿â„Î©Æ’â‰¥ÃÂµÃ‚ Ã¦Â¯Â¿Î©
 	nodes[6]->right = nodes[10];						   // G-K
 
 	inorder(nodes[0]);

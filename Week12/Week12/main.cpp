@@ -1,3 +1,4 @@
+# if 0
 #include <iostream>
 using namespace std;
 
@@ -87,16 +88,11 @@ int main() {
     n6 = new TreeNode('*', n4, n5);
     n7 = new TreeNode('+', n3, n6);
     root = n7;
-    
-    // Print inorder traversal
-    inorder(root);
-    
-    // Print preorder traversal
-    cout << endl;
-    preorder(root);
-    
+        
     // Print postorder traversal
-    cout << endl;
     postorder(root);
+    cout << endl;
+    
     return 0;
 }
+#endif
