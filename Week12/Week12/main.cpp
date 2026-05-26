@@ -23,6 +23,22 @@ void inorder(TreeNode* root) {
     inorder(root->right);
 }
 
+// Preorder Traversal Function
+void preorder(TreeNode* root) {
+    if (root == NULL) return;   // ⭐️
+    cout << root->data << ' ';
+    preorder(root->left);
+    preorder(root->right);
+}
+
+// Postorder Traversal Function
+void postorder(TreeNode* root) {
+    if (root == NULL) return;   // ⭐️
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << ' ';
+}
+
 TreeNode *n1, *n2,*n3, *n4, *n5, *n6, *n7;
 TreeNode *root;
 
@@ -72,8 +88,15 @@ int main() {
     n7 = new TreeNode('+', n3, n6);
     root = n7;
     
-    // Print inorder traversal function
+    // Print inorder traversal
     inorder(root);
     
+    // Print preorder traversal
+    cout << endl;
+    preorder(root);
+    
+    // Print postorder traversal
+    cout << endl;
+    postorder(root);
     return 0;
 }
