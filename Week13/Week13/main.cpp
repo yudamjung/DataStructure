@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
-#include <stack>
+#include <queue>
 using namespace std;
-
-// recursive version
 
 const int NODE_NUM = 8;
 
@@ -61,14 +59,14 @@ void makeGraph() {
     add_Edge(7, 3);add_Edge(7, 4);add_Edge(7, 5);add_Edge(7, 6);
 }
 
-stack<int> MyStack;
+// 인접 리스트 + 큐 활용
+queue<int> MyQueue;
 
-// Stack (STL) + Adjacent List 활용 (No Recursion)
-void DFS(int v) {
-    MyStack.push(v);
-    while(!MyStack.empty()) {
-        v = MyStack.top();
-        MyStack.pop();
+void BFS(int v) {
+    MyQueue.push(v);
+    while(!MyQueue.empty()) {
+        v = MyQueue.front();
+        MyQueue.pop();
         
         if(visited[v]) continue;
         visited[v] = 1;
@@ -76,27 +74,14 @@ void DFS(int v) {
         
         for (Edge *w = vertex[v]->list; w != NULL; w = w->link) {
             if (!visited[w->vertex_number]) {
-                MyStack.push(w->vertex_number);     // recursion 대신 push
+                MyQueue.push(w->vertex_number);     // recursion 대신 push
             }
         }
     }
-    
-    // Adjacent List + Recursion + DFS 에서의 DFS 함수 내부
-//    if(visited[v]) return;
-//    
-//    // 방문한 적 있으면
-//    visited[v] = 1;
-//    cout << vertex[v]->name << "을 방문함" << endl;
-//
-//    for (Edge *w = vertex[v]->list; w != NULL; w = w->link) {
-//        if (!visited[w->vertex_number]) {
-//            DFS(w->vertex_number);
-//        }
-//    }
 }
 
 int main() {
     makeGraph();
-    DFS(0);
+    BFS(0);
     return 0;
 }
