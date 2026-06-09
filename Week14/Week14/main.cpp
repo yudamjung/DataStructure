@@ -18,6 +18,7 @@ int Weight[NODE_NUM][NODE_NUM] = {
  
 
 bool S[NODE_NUM] = { }; // 모두 0으로 초기화
+int P[NODE_NUM];
 
 int Distance[NODE_NUM]; // 최단거리 저장
 
@@ -43,6 +44,7 @@ void shortest_path(int v) {         // v는 출발점, 다른 노드의 Distance
     // 배열 초기화
     for (int i=0; i < NODE_NUM; i++) {
         // S[i] = 0;
+        P[i] = v;                       // v(0)번 노드가 출발점
         Distance[i] = Weight[v][i];     // v 에서 i 까지의 최단거리, 초기화
     }
     
@@ -56,12 +58,8 @@ void shortest_path(int v) {         // v는 출발점, 다른 노드의 Distance
         for (int w = 0; w < NODE_NUM; w++) {
             if (S[w] == 0 && Distance[w] > Distance[u] + Weight[u][w]) {
                 Distance[w] = Distance[u] + Weight[u][w];
+                P[w] = u;
             }
-            
-            // 이렇게도 작성할 수 있음
-            // if (S[i] != 0) continue;
-            // Distance[w] = min(Distance[w], Distance[u] + Weight[u][w]);
-            
         }
     }
 }
@@ -77,5 +75,22 @@ int main() {
     int dest;
     cin >> dest;
     
+    // 최단 거리 출력
     cout << "출발점 " << start << " 부터 도착점 " << dest << "까지의 최단 거리는  " <<  Distance[dest] << endl;
+    
+    for (int i=0; i<NODE_NUM; i++) {
+        cout << i << " : " << P[i] << endl;
+    }
+    
+    // 최단 경로 출력
+    cout << "출발점 " << start << " 부터 도착점 " << dest << "까지의 최단 경로는  ";
+    int node = dest;
+    cout << dest;
+    // 도착지 부터 거꾸로 추적하기
+    while (P[node] != start) {
+        node = P[node];
+        cout << " <- " << node;
+    }
+    cout << " <- " << start;
+    cout << endl;
 }
